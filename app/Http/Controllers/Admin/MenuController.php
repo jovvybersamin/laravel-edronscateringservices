@@ -64,14 +64,19 @@ class MenuController extends Controller
     /**
      * Updates the current record in the database
      *
-     * @param Menu $menu
+     * @param $id
      * @param MenuRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
     public function update($id,MenuRequest $request)
     {
+        $inputs = $request->all();
+        if ($request->get('is_main_course') === null){
+            $inputs['is_main_course'] = 0;
+        }
+
         $menu = Menu::findOrFail($id);
-        $menu->update($request->all());
+        $menu->update($inputs);
         flash()->message('Successfully updated: ' . $menu->name,'success');
         return redirect()->route('admin.menus.edit',[$menu->id]);
     }

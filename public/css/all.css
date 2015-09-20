@@ -386,6 +386,10 @@ body{
     color:#5cb85c;
 }
 
+div.checkbox input[type=checkbox]{
+    margin-left: 0 !important;
+}
+
 
 table th.edit,th.delete,th.checkall,th.center{
     text-align: center;

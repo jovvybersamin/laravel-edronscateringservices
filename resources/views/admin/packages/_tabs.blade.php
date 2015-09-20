@@ -22,17 +22,40 @@
         </div>
     </div>
     <div role="tabpanel" class="tab-pane" id="package-rules">
-        @include('admin.packages.partials.title-section',['title' => 'Package Rules', 'showAction' => true,'target' => '#package-rule-modal'])
+        @include('admin.packages.partials.title-section',
+                    [
+                        'title' => 'Package Rules',
+                        'showAction' => true,
+                        'target' => '#package-rule-modal',
+                        'onClick' => 'PackageRule.create(this);',
+                    ])
+
         <div class="package_rules">
              @include('admin.packages._package_rules_table',[
                         'package_rules' => $package_rules,
                 ])
 
              @include('admin.packages.modals.package_rules._create_package_rule')
+             @include('admin.packages.modals.package_rules._edit_package_rule_modal')
         </div>
 
     </div>
-    <div role="tabpanel" class="tab-pane" id="menu-items">...</div>
+
+    <div role="tabpanel" class="tab-pane" id="menu-items">
+        @include('admin.packages.partials.title-section',
+                    [
+                        'title' => 'Package Menu Items',
+                        'showAction' => true,
+                        'target' => '#package-menuitems-modal',
+                        'class' => 'addMenuItem',
+                        'onClick' => 'PackageMenuItem.edit(this);',
+                        'href'    => route('admin.package-menuitem.getModalTable',$package->id)
+                    ]);
+
+        @include('admin.packages._package_menuitems_table')
+        @include('admin.packages.modals.package_menuitems._modal')
+    </div>
+
     <div role="tabpanel" class="tab-pane" id="media">
         <div class="package_media">
              @include('admin.packages.partials.media')

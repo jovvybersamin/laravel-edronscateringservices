@@ -26,6 +26,11 @@
         var target = '#package-courses-modal';
 
 
+        $('.add').on('click',function(e){
+            $(this).formModal();
+            return false;
+        });
+
         var PackageCourse = {
             edit : function(elem){
                 $(elem).formModal({
@@ -45,8 +50,57 @@
 
         var PackageRule = {
            edit : function(elem){
-
+                $(elem).formModal({
+                    onAjax:true,
+                    form:'#package-rule-edit-form',
+                    onUpdate:function(form){
+                        console.log(form);
+                        return false;
+                    },
+                    onStore:function(form){
+                        console.log(form);
+                        return false;
+                    }
+                })
+           },
+           create : function(elem){
+                $(elem).formModal({
+                    form:'#package-rule-form',
+                    onStore:function(form){
+                        console.log(form)
+                        return false;
+                    }
+                });
            }
+        }
+
+
+        /**
+         *
+         *
+         */
+        var PackageMenuItem = {
+            edit : function(elem){
+                $(elem).formModal({
+                    onAjax:true,
+                    loadTo:'.modal-body',
+                    form:'#package-menuitem-form',
+                    onUpdate:function(form,that){
+                        console.log(form);
+                        var table = $('#modal-table-package-menuitems');
+
+                            table.find('tr').each(function(){
+                                var checkbox = $(this).find(':checkbox');
+                                if($(checkbox).is(':checked')){
+                                    $(this).remove();
+                                }
+                            });
+
+                        reloadTablePackageMenuItem(form.serialize());
+                        return false;
+                    }
+                });
+            }
         }
 
         function reloadTablePackageCourse(form)
@@ -65,10 +119,22 @@
         }
 
 
-        $('.add').on('click',function(e){
-            $(this).formModal();
-            return false;
-        });
+        function reloadTablePackageMenuItem(form)
+        {
+               $.ajax({
+                    type:'GET',
+                    url:'/admin/package-menuitem/getTable',
+                    data:form,
+                    success:function( response ){
+                        $('#table-package-menuitems tbody').html(response);
+                    },
+                    error:function(response){
+                        console.log(response);
+                    }
+                });
+        }
+
+
 
         $('#package-course-form').on('submit',function( event ){
             event.preventDefault();

@@ -4,7 +4,7 @@
     </div>
     @if( isset($showAction) && $showAction )
         <div class="actions">
-            <a class="add btn btn-default" href="{{ $target }}" data-target="{{ $target }}" role="button">
+            <a class="{{ (isset($class) ? $class : 'add') }} btn btn-default"  onclick="{{ (isset($onClick) ? $onClick : '') }} return false;" href="{{ (isset($href) ? $href : '' ) }}" data-target="{{ $target }}" role="button">
                 Add
             </a>
         </div>

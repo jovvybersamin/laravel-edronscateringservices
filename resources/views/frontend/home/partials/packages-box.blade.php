@@ -6,27 +6,22 @@
             </h2>
             <hr>
         </div>
-        <div class="col-sm-4 text-center">
-            <img class="img-responsive" src="css/img/simple.jpg" alt="">
-            <h3>SIMPLE YET ELEGANT PACKAGE 350/head
-            <br>
-                <small>3 Main course + one Pasta or Pansit and One Vegetables + Desert tle</small>
-            </h3>
-        </div>
-        <div class="col-sm-4 text-center">
-            <img class="img-responsive" src="css/img/elegant.jpg" alt="">
-            <h3>Elegant Package 450/Head
-            <br>
-                <small>3 Main course + Appetizer + One Pasta or Pancit and one Vegetables + 2 Desserts</small>
-            </h3>
-        </div>
-          <div class="col-sm-4 text-center">
-            <img class="img-responsive" src="css/img/grande2.jpg" alt="">
-            <h3>Grande Package 650/Head
-            <br>
-                <small>5 COURSE + Appetizer + One Pancit + One soup + 2 Desserts</small>
 
-            </h3>
-        </div>
+        @foreach($packages->chunk(3) as $items)
+               <div class="row"> 
+               @foreach($items as $item )
+                     <div class="col-sm-4 text-center">
+                        <img class="img-responsive" src="{{ $item->getPhoto() }}" alt="">
+                        <h3>{{ $item->name }}
+                        <br>
+                            <small>{{ $item->description }}</small>
+                        </h3>
+                        <u><a href="#">See More..</a></u>
+                    </div>
+               @endforeach 
+               </div>
+        @endforeach
+
+       
         <div class="clearfix"></div>
     </div>

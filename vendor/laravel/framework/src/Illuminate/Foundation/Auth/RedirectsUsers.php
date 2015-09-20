@@ -13,15 +13,16 @@ trait RedirectsUsers
      */
     public function redirectPath()
     {
+
         if (property_exists($this, 'redirectPath')) {
             return $this->redirectPath;
         }
 
         if (Auth::user()->isAdmin())
         {
-            return property_exists($this, 'redirectToIfAdmin') ? $this->redirectToIfAdmin : '/home';
+            return property_exists($this, 'redirectToIfAdmin') ? $this->redirectToIfAdmin : '/';
         }
 
-        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/home';
+        return property_exists($this, 'redirectTo') ? $this->redirectTo : '/';
     }
 }

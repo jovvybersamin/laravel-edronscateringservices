@@ -14,6 +14,11 @@ class RedirectIfAuthenticated
      */
     protected $auth;
 
+
+    protected $redirectTo = '/';
+
+    protected $ifAdminRedirectTo = '/admin';
+
     /**
      * Create a new filter instance.
      *
@@ -35,7 +40,9 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next)
     {
         if ($this->auth->check()) {
-            return redirect('/home');
+            if($request->user()->isAdmin())
+                return redirect($this->ifAdminRedirectTo);
+            return redirect($this->redirectTo);
         }
 
         return $next($request);

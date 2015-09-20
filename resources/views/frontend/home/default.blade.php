@@ -10,9 +10,12 @@
         @include('frontend.home.partials.about-box')
     </div>
 
+    <div class="row">
+        @include('frontend.home.partials.gallery-box')
+    </div>
 
     <div class="row">
-        @include('frontend.home.partials.packages-box')
+        @include('frontend.home.partials.packages-box',$packages)
     </div>
 
 

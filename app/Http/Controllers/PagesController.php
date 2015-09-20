@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Package;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -17,8 +18,13 @@ class PagesController extends Controller
      */
     public function home()
     {
-        return view('frontend.home.default');
+
+        $packages = Package::all();
+        return view('frontend.home.default',compact('packages'));
     }
+
+
+
 
     /**
      * Shows the frontend gallery page.
@@ -34,4 +40,27 @@ class PagesController extends Controller
     {
         return view ('frontend.menu.menu');
     }
+
+    public function packages()
+    {
+
+        $packages = Package::all();
+        return view('frontend.packages.package',compact('packages   '));
+    }
+
+    public function contact()
+    {
+        return view('frontend.contact.contact');
+    }
+
+      public function package_menu()
+    {
+        return view('frontend.package_menu.package1');
+    }
+
+       public function package_menu2()
+    {
+        return view('frontend.package_menu.package1');
+    }
+
 }

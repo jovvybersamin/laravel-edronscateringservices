@@ -25,7 +25,7 @@
  				<button type="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
  			</form>
  			<ul class="nav navbar-nav navbar-right">
- 				<li><a href="http://www.pingpong-labs.com" target="_blank">Visit Site</a></li>
+ 				<li><a href="{{ route('frontend.home') }}" target="_blank">Visit Site</a></li>
  				<li class="dropdown ">
  					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
  						{{ (Auth::user() !== null ? Auth::user()->name : '') }}

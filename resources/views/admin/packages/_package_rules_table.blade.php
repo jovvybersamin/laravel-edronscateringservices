@@ -19,7 +19,7 @@
                     <td class="center">{{ $rule->no_of_items }}</td>
                     <td class="edit">
                         <p data-placement="top" data-toggle="tooltip" title="Edit">
-                            <a href="{{ route('admin.package-course.edit',['id' => $rule->id]) }}" onclick="PackageCourse.edit(this); return false;" class="edit btn btn-primary btn-xs" data-title="Edit" data-target="#edit-package-course-modal">
+                            <a href="{{ route('admin.package-rule.edit',['id' => $rule->id]) }}" onclick="PackageRule.edit(this); return false;" class="edit btn btn-primary btn-xs" data-title="Edit" data-target="#edit-package-rule-modal">
                                 <span class="glyphicon glyphicon-pencil"></span>
                             </a>
                         </p>

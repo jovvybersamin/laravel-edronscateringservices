@@ -47,13 +47,15 @@ class PackageController extends Controller
         $package = Package::findOrFail($id);
         $package_courses = $package->courses()->get();
         $package_rules = $package->rules()->get();
+        $package_menuitems = $package->menuitems()->orderBy('menu_id')->get();
+
         $menus = Menu::orderBy('name')->where('is_main_course',0)->lists('name','id');
 
         if(!$menus->count()){
             $menus->put(0,'No Menus found.');
         }
 
-        return view('admin.packages.edit',compact('package','package_courses','package_rules','menus'));
+        return view('admin.packages.edit',compact('package','package_courses','package_rules','package_menuitems','menus'));
     }
 
     /**
@@ -66,7 +68,7 @@ class PackageController extends Controller
     {
         $package = Package::create($request->all());
         flash()->message('Successfully added new package: ' . $package->name,'success');
-        return redirect('admin/packages');
+        return redirect()->route('admin.packages.edit',$package->id);
     }
 
 
@@ -79,6 +81,8 @@ class PackageController extends Controller
      */
     public function update($id,PackageRequest $request)
     {
+        $queries = \DB::getQueryLog();
+
         $package = Package::findOrFail($id);
         $package->update($request->all());
 

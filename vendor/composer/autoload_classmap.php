@@ -6,6 +6,8 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddEmailColumnToUsersTable' => $baseDir . '/database/migrations/2015_09_20_063741_add_email_column_to_users_table.php',
+    'AddIsActiveColumnInUsersTable' => $baseDir . '/database/migrations/2015_09_20_065438_add_is_active_column_in_users_table.php',
     'AddIsAdminColumnInUsersTable' => $baseDir . '/database/migrations/2015_08_31_103854_add_is_admin_column_in_users_table.php',
     'AddPathColumnToPackagePhotosTable' => $baseDir . '/database/migrations/2015_09_13_092319_add_path_column_to_package_photos_table.php',
     'CreateMenuItemsTable' => $baseDir . '/database/migrations/2015_08_29_162142_create_menu_items_table.php',
@@ -16,6 +18,7 @@ return array(
     'CreatePackageRulesTable' => $baseDir . '/database/migrations/2015_08_29_161757_create_package_rules_table.php',
     'CreatePackagesTable' => $baseDir . '/database/migrations/2015_08_29_155940_create_packages_table.php',
     'CreatePasswordResetsTable' => $baseDir . '/database/migrations/2014_10_12_100000_create_password_resets_table.php',
+    'CreateTableEvents' => $baseDir . '/database/migrations/2015_09_20_115038_create_table_events.php',
     'CreateUsersTable' => $baseDir . '/database/migrations/2014_10_12_000000_create_users_table.php',
     'DatabaseSeeder' => $baseDir . '/database/seeds/DatabaseSeeder.php',
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',

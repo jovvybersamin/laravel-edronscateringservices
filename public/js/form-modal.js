@@ -3,9 +3,14 @@
     var pluginName = 'formModal',
         defaults = {
             onAjax:false,
-            form:'#form',
+            onSubmit:true,
+            loadTo:'.modal-dialog',
+            form:'#updateForm',
+            sForm:'#storeForm',
             saveBtn:'#save',
-            onUpdate:function(){}
+            beforeSave:function(){},
+            onUpdate:function(){},
+            onStore:function(){}
         };
     // FormModal PLUGIN DEFINITION
     // ==========================
@@ -27,6 +32,8 @@
     Plugin.prototype.init = function(){
         this.$modal = $(this.$element).data('target');
         this.$modal = $(this.$modal);
+
+
 
         // show the modal.
         if (!this.$options.onAjax){
@@ -51,9 +58,19 @@
         var that = this;
 
         setTimeout(function(){
-            that.$modal.find('.modal-dialog').load(href,'',function(){
+            that.$modal.find(that.$options.loadTo).load(href,'',function(){
                 that.show();
                 that.events();
+            });
+        },500)
+    };
+
+    Plugin.prototype.reload = function(){
+        var href = this.$element.attr('href');
+        var that = this;
+
+        setTimeout(function(){
+            that.$modal.find(that.$options.loadTo).load(href,'',function(){
             });
         },500)
 
@@ -74,13 +91,16 @@
         $(this.$options.form).on('submit', function(e){
              e.preventDefault();
              var form = this;
-             that.submit(form,function(res){
-                 if(res){
-                     that.$options.onUpdate($(form));
+             that.submit(form,function(contSubmitting){
+                 if(contSubmitting){
+                     that.$options.onUpdate($(form),that);
+                 }else{
+                     return false;
                  }
              });
              // call a call back after submitting and successfull
         });
+
     };
 
     Plugin.prototype.submit = function(form,callback){
@@ -92,11 +112,14 @@
                 url: form.attr('action'),
                 data:form.serialize(),
                 dataType:'json',
+                beforeSend: function(){
+                  $('input[type=submit]',form).attr('disabled',true);
+                },
                 success: function( response ){
                     notification.add(response.message);
-                    notification.show('success',modal);
+                    notification.show((typeof response.type !== 'undefined' ? response.type : 'success'),modal);
                     // call a callback.
-                    callback(true);
+                    callback((typeof response.type !== 'undefined' ? (response.type == 'success' ? true : false) : true));
                 },
                 error: function( response ){
                     var errors = $.parseJSON(response.responseText);
@@ -108,8 +131,11 @@
                     });
 
                     notification.show('danger',modal);
+                    $('input[type=submit]',form).attr('disabled',false);
                     callback(false);
                 }
+            }).done(function(){
+                $('input[type=submit]',form).attr('disabled',false);
             });
 
     }

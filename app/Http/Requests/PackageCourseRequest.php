@@ -23,11 +23,13 @@ class PackageCourseRequest extends Request
      */
     public function rules()
     {
-
-        if ($this->method() == 'PUT' || $this->method() == 'PATCH'){
-            $rule_no = 'required|min:1|numeric|unique:package_courses,no_of_main_courses,' . Request::get('id');
-        } else {
-            $rule_no = 'required|min:1|numeric|unique:package_courses,no_of_main_courses,package_id';
+        if ($this->method() == 'PUT' || $this->method() == 'PATCH')
+        {
+            $rule_no = 'required|min:1|numeric|unique:package_courses,no_of_main_courses,'. Request::get('id') .',id,package_id,' . Request::get('package_id');
+        }
+        else
+        {
+            $rule_no = 'required|min:1|numeric|unique:package_courses,no_of_main_courses,null,id,package_id,' . Request::get('package_id') ;
         }
 
         return [

@@ -39,7 +39,17 @@ class Package extends Model
         return $this->hasOne('App\PackagePhoto');
     }
 
+    public function menuitems()
+    {
+        return $this->belongsToMany('App\MenuItem','package_menu_items');
+    }
 
+    /**
+     * Get the photo path of the package.
+     *
+     *
+     * @return bool
+     */
     public function getPhoto()
     {
         if ($this->photo()->count()){
